@@ -3,4 +3,9 @@
 TC_ID: LOGIN_POS_01
 Title: Login with valid user
 Expected: Redirected to inventory page
-","2237","test_login_pos_01","tests","2025-10-06","passed","2025-10-06","","test_login","",""
+","3925","test_login_pos_01","tests","2025-10-06","failed","2025-10-06","","test_login","",""
+"
+TC_ID: LOGIN_NEG_01
+Title: Login with locked user
+Expected: Error message displayed
+","1915","test_login_neg_01","tests","2025-10-06","passed","2025-10-06","","test_login","",""
