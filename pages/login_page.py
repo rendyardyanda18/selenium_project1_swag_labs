@@ -15,5 +15,5 @@ class LoginPage:
         self.browser.find_element(*LoginLocators.LOGIN_BUTTON).click()
 
     def get_error_message(self):
-        return self.driver.find_element(*LoginLocators.ERROR_MSG).text
+        return self.browser.find_element(*LoginLocators.ERROR_MSG).text
 

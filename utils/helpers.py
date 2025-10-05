@@ -2,21 +2,6 @@ import os
 import time
 import allure
 
-''' before modified to allure
-def take_screenshot(driver, folder_ss="screenshots", step_name="step"):
-    """Ambil screenshot dan simpan ke folder yang ditentukan."""
-    # Pastikan folder ada
-    os.makedirs(folder_ss, exist_ok=True)
-
-    filename = os.path.join(
-        folder_ss,
-        f"screenshot_{step_name}_{time.strftime('%Y%m%d_%H%M%S')}.png"
-    )
-    driver.get_screenshot_as_file(filename)
-    print("📸 Screenshot saved:", filename)
-    return filename
-'''
-
 # modified adding to allure
 def take_screenshot(driver, folder_ss="screenshots", step_name="step"):
     """Ambil screenshot, simpan ke folder DAN attach ke Allure report."""

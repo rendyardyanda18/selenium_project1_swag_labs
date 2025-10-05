@@ -33,31 +33,6 @@ def pytest_configure(config):
     # Simpan path report di config untuk diakses oleh hook berikutnya
     config._metadata = {"allure_report_dir": report_dir}
 
-''' Sebelum add allurepath
-def pytest_sessionfinish(session, exitstatus):
-    """Setelah semua test selesai, generate HTML Allure report otomatis"""
-    # Ambil folder hasil pytest dari hook pytest_configure
-    report_dir = getattr(session.config, "_metadata", {}).get("allure_report_dir", "reports")
-    allure_html_dir = "allure-report"
-
-    try:
-        print("\n[Allure] Generating HTML report...")
-        subprocess.run(
-            ["allure", "generate", report_dir, "-o", allure_html_dir, "--clean"],
-            check=True
-        )
-        print(f"[Allure] ✅ Report generated successfully at: {allure_html_dir}/index.html")
-
-        # (Opsional) buka langsung di browser lokal:
-        # subprocess.run(["allure", "open", allure_html_dir])
-
-    except FileNotFoundError:
-        print("[Allure] ❌ 'allure' command not found. Pastikan Allure sudah diinstal dan PATH sudah diset.")
-    except subprocess.CalledProcessError:
-        print("[Allure] ⚠️ Gagal generate report (mungkin tidak ada hasil test).")
-    except Exception as e:
-        print(f"[Allure] ⚠️ Unexpected error: {e}")
-'''
 def pytest_sessionfinish(session, exitstatus):
     """Generate Allure report otomatis setelah test selesai dengan timestamp"""
     report_dir = getattr(session.config.option, "allure_report_dir", "reports")

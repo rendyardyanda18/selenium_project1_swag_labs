@@ -12,3 +12,8 @@ def assert_url_contains(driver, keyword):
 def assert_text_equal(actual, expected):
     # Verifikasi teks aktual sama dengan yang diharapkan
     assert actual == expected, f"Expected '{expected}', but got '{actual}'"
+
+def assert_error_contains(actual, expected):
+    if actual == expected:
+        print(f"error message passed. actual: {actual}, expected: {expected}")
+    assert actual == expected, f"error message is different. actual: {actual}, expected: {expected}"
