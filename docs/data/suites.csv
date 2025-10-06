@@ -1,11 +1,34 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
 "
+TC_ID: LOGIN_POS_01
+Title: Login with valid credentials
+Expected: Redirected to inventory page
+","5113","test_login_pos_01","tests","2025-10-06","passed","2025-10-06","","test_login","",""
+"
+TC_ID: LOGIN_NEG_06
+Title: Login with username input only
+Expected:
+    - Error message appears
+    - Showed message ""Please enter your password.""
+","17739","test_login_neg_06","tests","2025-10-06","failed","2025-10-06","","test_login","",""
+"
+TC_ID: LOGIN_NEG_08
+Title: Login with password input only
+Expected:
+    - Error message appears
+    - Showed message ""Please input username and password""
+","3433","test_login_neg_08","tests","2025-10-06","failed","2025-10-06","","test_login","",""
+"
 TC_ID: LOGIN_NEG_01
 Title: Login with locked user
-Expected: Error message displayed
-","1750","test_login_neg_01","tests","2025-10-06","passed","2025-10-06","","test_login","",""
+Expected:
+    - Error message appears
+    - Showed message ""This user has been locked""
+","2735","test_login_neg_01","tests","2025-10-06","failed","2025-10-06","","test_login","",""
 "
-TC_ID: LOGIN_POS_01
-Title: Login with valid user
-Expected: Redirected to inventory page
-","2121","test_login_pos_01","tests","2025-10-06","failed","2025-10-06","","test_login","",""
+TC_ID: LOGIN_NEG_07
+Title: Login with password input only
+Expected:
+    - Error message appears
+    - Showed message ""Please enter your username.""
+","2278","test_login_neg_07","tests","2025-10-06","failed","2025-10-06","","test_login","",""

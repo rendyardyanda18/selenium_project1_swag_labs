@@ -15,6 +15,9 @@ def browser_chrome():
     # tambahkan opsi saat buka chrome
     options = Options()
     options.add_argument("--start-maximized")
+    options.add_argument("--incognito") # Mode incognito
+    options.add_argument("--disable-notifications") # Matikan notifikasi (opsional)
+
     # Object browser
     browser = webdriver.Chrome(service=service, options=options)
     browser.implicitly_wait(Config.IMPLICIT_WAIT)
