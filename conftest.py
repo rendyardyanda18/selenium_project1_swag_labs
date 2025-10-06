@@ -24,25 +24,34 @@ def browser_chrome():
     browser.quit()
 
 def pytest_configure(config):
-    """Setup folder report Allure dengan timestamp unik"""
+    """Setup dan simpan path report Allure dengan timestamp unik"""
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    # Folder untuk hasil .json (raw)
     report_dir = os.path.join("reports", timestamp)
     os.makedirs(report_dir, exist_ok=True)
+
+    # Folder untuk HTML hasil generate
+    allure_html_dir = os.path.join("allure-report", f"report_{timestamp}")
+
+    # Simpan ke config agar bisa diakses di pytest_sessionfinish
+    config._metadata = {
+        "timestamp": timestamp,
+        "report_dir": report_dir,
+        "allure_html_dir": allure_html_dir,
+    }
+
+    # Update allure option
     config.option.allure_report_dir = report_dir
 
-    # Simpan path report di config untuk diakses oleh hook berikutnya
-    config._metadata = {"allure_report_dir": report_dir}
 
 def pytest_sessionfinish(session, exitstatus):
-    """Generate Allure report otomatis setelah test selesai dengan timestamp"""
-    report_dir = getattr(session.config.option, "allure_report_dir", "reports")
+    """Generate Allure HTML report otomatis setelah test selesai"""
+    metadata = getattr(session.config, "_metadata", {})
+    report_dir = metadata.get("report_dir", "reports")
+    allure_html_dir = metadata.get("allure_html_dir", "allure-report/latest")
 
-    # Buat folder baru di dalam allure-report berdasarkan timestamp
-    timestamp = time.strftime("%Y%m%d_%H%M%S")
-    allure_base_dir = "allure-report"
-    allure_html_dir = os.path.join(allure_base_dir, f"report_{timestamp}")
-
-    allure_path = Config.ALLURE_PATH  # path dari config.py
+    allure_path = Config.ALLURE_PATH  # Path dari config.py
 
     try:
         print("\n[Allure] Generating HTML report...")
@@ -58,3 +67,12 @@ def pytest_sessionfinish(session, exitstatus):
         print("[Allure] ⚠️ Gagal generate report. Cek folder report.")
     except Exception as e:
         print(f"[Allure] ⚠️ Unexpected error: {e}")
+
+@pytest.fixture
+def run_timestamp(request):
+    metadata = getattr(request.config, "_metadata", {})
+    ts = metadata.get("timestamp")
+    if not ts:
+        # fallback kalau metadata tidak ada
+        ts = "no-timestamp"
+    return ts
